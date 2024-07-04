@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :authenticate_request!
+  before_action :authenticate_request!, only: [:current]
 
   before_action :set_user, only: [:show, :update, :destroy]
 
@@ -48,6 +48,11 @@ class UsersController < ApplicationController
     else
       render json: { error: 'Invalid email or password' }, status: :unauthorized
     end
+  end
+
+  # GET /current_user
+  def current
+    render json: @current_user
   end
 
   private

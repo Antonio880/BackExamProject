@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   def register
     result = Users::Organizers::Register.call(user_params: user_params_register)
     if result.success?
-      render json: { token: result.token }, status: :created
+      render json: { token: result.token, user: result.user }, status: :created
     else
       render json: { error: result.message }, status: :unprocessable_entity
     end
@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
   def login
     result = Users::Organizers::Login.call(user_params: user_params)
     if result.success?
-      render json: { token: result.token }, status: :ok
+      render json: { token: result.token, user: result.user }, status: :ok
     else
       render json: { error: result.message }, status: :unauthorized
     end
