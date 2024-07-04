@@ -14,6 +14,13 @@ class ExamsController < ApplicationController
         render json: { error: result.error }, status: :unprocessable_entity
       end
     end
+
+    # GET /rooms/created_by/:created_by_id
+    def created_by
+      puts params[:created_by_id]
+      @exams = Exam.where(created_by_id: params[:created_by_id])
+      render json: @exams
+    end
   
     def generate_questions
       result = Exams::GenerateQuestions.call(category: params[:category], limit: params[:limit])

@@ -23,6 +23,13 @@ class RoomsController < ApplicationController
         render json: @room.errors, status: :unprocessable_entity
       end
     end
+
+    # GET /rooms/created_by/:created_by_id
+    def created_by
+      puts params[:created_by_id]
+      @rooms = Room.where(created_by_id: params[:created_by_id])
+      render json: @rooms
+    end
   
     # PUT /rooms/:id
     def update
