@@ -3,7 +3,11 @@ module Exams
         class CreateExamAndGenerateQuestions
             include Interactor::Organizer
     
-            organize CreateExam, GenerateQuestions, SaveGeneratedQuestions
+            organize( 
+                Exams::Interactors::CreateExam, 
+                Exams::Interactors::GenerateQuestions, 
+                Exams::Interactors::SaveGeneratedQuestions 
+            )
         end
     end
 end
