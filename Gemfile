@@ -6,6 +6,7 @@ gem "sqlite3", "~> 1.4"
 gem "puma", ">= 5.0"
 gem "bcrypt", "~> 3.1.7"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem 'rest-client'
 gem 'dotenv-rails', '~> 3.1', '>= 3.1.2'
 gem "interactor", "~> 3.1", ">= 3.1.2"
 gem 'jwt', '~> 2.8', '>= 2.8.1'

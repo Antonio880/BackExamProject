@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_request!, only: [:current]
 
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy, :get_room]
 
   # GET /users
   def index
@@ -40,13 +40,13 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
-  # POST /users/login
-  def login
-    @user = User.find_by(email: params[:email])
-    if @user&.authenticate(params[:password])
-      render json: @user
+  #GET /users/:id/get_room
+  def get_room
+    room = @user.room
+    if room
+      render json: room
     else
-      render json: { error: 'Invalid email or password' }, status: :unauthorized
+      render json: { error: 'Room not found for the user' }, status: :not_found
     end
   end
 

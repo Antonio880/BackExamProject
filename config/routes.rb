@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   post "login" => "sessions#login"
 
   resources :users do
-    collection do
-      post 'login'
+    member do
+      get 'get_room'
     end
   end
 
@@ -18,14 +18,22 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :exams, only: [:create, :destroy] do
+  resources :exams do
     member do
       post 'generate-questions'
-      post 'submit'
+      #get 'questions/:exam_id', to: 'exams#get_questions'
     end
     collection do
-      get 'created_by/:created_by_id', action: :created_by
-      get 'room_exams/:room_id', action: :room_exams
+      get 'questions/:exam_id', to: 'exams#get_questions'
+      get 'created_by/:created_by_id', to: 'exams#created_by'
+      get 'room_exams/:room_id', to: 'exams#get_room_exams'
+      get ':exam_id/check_user/:user_id', to: 'exams#check_user_exam'
+    end
+  end
+
+  resources :exam_results do
+    collection do
+      post 'submit'
     end
   end
 

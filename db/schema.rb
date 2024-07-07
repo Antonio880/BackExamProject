@@ -10,13 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_02_212952) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_06_182106) do
   create_table "exam_questions", force: :cascade do |t|
     t.integer "exam_id", null: false
     t.string "question"
     t.string "description"
-    t.json "answers"
-    t.json "correct_answers"
     t.string "multiple_correct_answers"
     t.string "correct_answer"
     t.string "explanation"
@@ -25,7 +23,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_212952) do
     t.string "difficulty"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "answers", default: {}
+    t.json "correct_answers", default: {}
     t.index ["exam_id"], name: "index_exam_questions_on_exam_id"
+  end
+
+  create_table "exam_results", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "exam_id", null: false
+    t.integer "score"
+    t.integer "total_questions"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_exam_results_on_exam_id"
+    t.index ["user_id"], name: "index_exam_results_on_user_id"
   end
 
   create_table "exams", force: :cascade do |t|
@@ -60,6 +71,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_212952) do
   end
 
   add_foreign_key "exam_questions", "exams"
+  add_foreign_key "exam_results", "exams"
+  add_foreign_key "exam_results", "users"
   add_foreign_key "exams", "rooms"
   add_foreign_key "exams", "users", column: "created_by_id"
   add_foreign_key "rooms", "users", column: "created_by_id"
