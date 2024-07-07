@@ -5,7 +5,7 @@ module Exams
   
       def call
         exam = Exam.find(context.exam_id)
-        questions = exam.questions
+        questions = exam.exam_questions # Use `exam_questions` instead of `questions`
   
         correct_answers = 0
         incorrect_answers = 0
@@ -30,4 +30,3 @@ module Exams
     end
   end
 end
-  

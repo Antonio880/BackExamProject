@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :exam_results
   belongs_to :room, optional: true
   has_many :created_rooms, class_name: 'Room', foreign_key: 'created_by_id'
   has_many :exams, foreign_key: 'created_by_id'
