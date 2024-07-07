@@ -13,10 +13,10 @@ class RoomsController < ApplicationController
       render json: @room
     end
   
-    # POST /rooms
+    # POST /rooms/:created_by_id
     def create
       @room = Room.new(room_params)
-      @room.created_by = User.find(params[:creator_id])
+      @room.created_by = User.find(room_params[:created_by_id])
       if @room.save
         render json: @room, status: :created
       else
